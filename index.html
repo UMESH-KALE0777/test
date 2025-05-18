@@ -1,28 +1,1305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NeXT-US Industries</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Header and Nav */
+  header {
+    background: #fff;
+    padding: 12px 24px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+  #companyName {
+    font-size: 28px;
+    font-weight: 900;
+    user-select: none;
+    white-space: nowrap;
+  }
+  /* Style for golden orange color 'e' and 'X' */
+  #companyName .golden {
+    color: #FFAA00;
+  }
+  nav {
+    display: flex;
+    gap: 16px;
+  }
+  nav button {
+    background: none;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: #444;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  nav button:hover, nav button.active {
+    background-color: #FFAA00;
+    color: #fff;
+  }
+  /* Main content area */
+  main {
+    flex-grow: 1;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto 48px auto;
+    width: 100%;
+  }
+
+  /* Home page style */
+  #homePage {
+    text-align: center;
+  }
+  #homePage h1 {
+    font-size: 48px;
+    margin-bottom: 0.5em;
+    color: #222;
+  }
+  #homePage p {
+    font-size: 18px;
+    color: #555;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* About & Contact */
+  #aboutPage, #contactPage {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    color: #444;
+  }
+  #aboutPage h2, #contactPage h2 {
+    color: #FFAA00;
+    margin-bottom: 1em;
+  }
+
+  /* Dashboard */
+  #dashboardPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .factory-selector {
+    margin-bottom: 16px;
+  }
+  .tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    flex-grow: 1;
+    padding: 10px 15px;
+    background: #ddd;
+    border-radius: 6px 6px 0 0;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tab.active {
+    background: #FFAA00;
+    color: white;
+  }
+  .tab-content {
+    background: white;
+    border-radius: 0 6px 6px 6px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: 700;
+  }
+  .status-dot {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .status-pending { background-color: #F3A712;}
+  .status-inprogress { background-color: #007bff;}
+  .status-completed { background-color: #28a745;}
+  .status-delayed { background-color: #dc3545;}
+  
+  /* Inventory page */
+  #inventoryPage {
+    max-width: 100%;
+  }
+  #inventoryPage h3 {
+    color: #FFAA00;
+    margin-bottom: 0.8em;
+  }
+  .alert {
+    color: #dc3545;
+    font-weight: 700;
+  }
+
+  /* Machine Utilization page */
+  #machineUtilizationPage h3 {
+    color: #FFAA00;
+    margin-bottom: 0.8em;
+  }
+  .alert-light {
+    color: #e68a00;
+  }
+
+  /* Analytics */
+  #analyticsPage {
+    max-width: 100%;
+    text-align: center;
+  }
+  #analyticsPage h2 {
+    color: #FFAA00;
+    margin-bottom: 0.8em;
+  }
+  .analytics-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .analytics-card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    width: 220px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    text-align: center;
+  }
+  .analytics-card h4 {
+    margin: 0 0 8px;
+    color: #444;
+  }
+  .analytics-card p {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .download-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  .download-buttons button {
+    background: #FFAA00;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+  }
+  .download-buttons button:hover {
+    background-color: #cc8800;
+  }
+  canvas#analytics-chart {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+  }
+
+  /* Role Based Access Control */
+  #rbacPage {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #rbacPage h2 {
+    color: #FFAA00;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  .login {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .login label {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  .login select, .login button {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  .login button {
+    background-color: #FFAA00;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 12px;
+    font-weight: 700;
+  }
+  .login button:hover {
+    background-color: #cc8800;
+  }
+  .role-info {
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Language toggle UI */
+  #langToggle {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #FFAA00;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    user-select: none;
+    z-index: 100;
+    box-shadow: 0 2px 6px #cc8800;
+  }
+  
+  /* QR Code Scanner Section */
+  #qrScannerPage {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #qrScannerPage h2 {
+    color: #FFAA00;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  #qrSimulator {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+  }
+  #qrSimulator label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  #qrSimulator input, #qrSimulator select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  #qrSimulator button {
+    background-color: #FFAA00;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #qrSimulator button:hover {
+    background:#cc8800;
+  }
+  #qrLogs {
+    margin-top: 14px;
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    background: #fafafa;
+  }
+  #qrLogs div {
+    margin-bottom: 6px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      padding: 16px 12px;
+    }
+    header {
+      padding: 12px 14px;
+    }
+    nav button {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+  }
+</style>
 </head>
 <body>
-    <h1>Hello NeXT-US</h1>
-    <div id="center">
-    <img id="logo" src="./images/logo.png" alt="Image 2">
-    <form id="form" action="/action_page.php">
-        <label for="cars">Choose a car:</label>
-        <br/>
-        <select name="cars" id="cars">
-            <option value="volvo">Manager</option>
-            <option value="saab">worker</option>
-            <option value="opel">customer</option>
-            <option value="audi">jc</option>
-        </select>
-         <br><br>
-        <input type="submit" value="Submit">
-    </form>
+<header>
+  <div id="companyName" aria-label="Company Name">
+    N<span class="golden">e</span><span class="golden">X</span>T-US
+  </div>
+  <nav aria-label="Primary navigation">
+    <button id="navHome" aria-current="page">Home</button>
+    <button id="navDashboard">Dashboard</button>
+    <button id="navInventory">Inventory Tracker</button>
+    <button id="navMachine">Machine & Labor Utilization</button>
+    <button id="navAnalytics">Analytics Panel</button>
+    <button id="navRBAC">Role-Based Access Control</button>
+    <button id="navQRScanner">QR Material Entry</button>
+    <button id="navAbout">About Us</button>
+    <button id="navContact">Contact Us</button>
+  </nav>
+</header>
+
+<button id="langToggle" aria-label="Toggle Language">ಕನ್ನಡ</button>
+
+<main>
+
+<!-- Home Page -->
+<section id="homePage" class="page-section" aria-label="Home page">
+  <h1>Welcome to NeXT-US Industries</h1>
+  <p>Your trusted manufacturer of premium soap and shampoo products. Quality, productivity & innovation at the heart of everything we do.</p>
+</section>
+
+<!-- Dashboard Page -->
+<section id="dashboardPage" class="page-section" hidden aria-label="Dashboard">
+  <div class="factory-selector">
+    <label for="dashboardFactorySelect"><strong>Select Factory:</strong></label>
+    <select id="dashboardFactorySelect" aria-describedby="factoryDesc">
+      <option value="factory1">Factory 1 - Bangalore</option>
+      <option value="factory2">Factory 2 - Hubli</option>
+      <option value="factory3">Factory 3 - Mysore</option>
+    </select>
+    <div id="factoryDesc" style="font-size: 13px; color: #666; margin-top: 4px;">Choose factory to view production data</div>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Dashboard product tabs">
+    <div role="tab" tabindex="0" aria-selected="true" aria-controls="soapTab" id="tabSoap" class="tab active">Soap Production</div>
+    <div role="tab" tabindex="-1" aria-selected="false" aria-controls="shampooTab" id="tabShampoo" class="tab">Shampoo Production</div>
+  </div>
+
+  <div id="soapTab" role="tabpanel" tabindex="0" aria-labelledby="tabSoap" class="tab-content">
+    <h3>Soap Production Overview</h3>
+    <table id="soapProductionTable" aria-describedby="soapDesc">
+      <caption id="soapDesc">Current soap production orders and status</caption>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Shift</th>
+          <th>Hours Worked</th>
+          <th>Daily Production</th>
+          <th>Productivity</th>
+          <th>Est. Completion Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populated by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <div id="shampooTab" role="tabpanel" tabindex="0" aria-labelledby="tabShampoo" class="tab-content" hidden>
+    <h3>Shampoo Production Overview</h3>
+    <table id="shampooProductionTable" aria-describedby="shampooDesc">
+      <caption id="shampooDesc">Current shampoo production orders and status</caption>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Shift</th>
+          <th>Hours Worked</th>
+          <th>Daily Production</th>
+          <th>Productivity</th>
+          <th>Est. Completion Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populated by JS -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Inventory Tracker -->
+<section id="inventoryPage" class="page-section" hidden aria-label="Inventory Tracker">
+  <h2>Inventory & Raw Material Tracker</h2>
+  <h3>Raw Material Consumption</h3>
+  <table aria-describedby="rawMaterialDesc">
+    <caption id="rawMaterialDesc">Raw material consumption and alerts</caption>
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Consumed (Kg)</th>
+        <th>Threshold (Kg)</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="rawMaterialTableBody">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+  
+  <h3>Finished Goods Ready to Dispatch</h3>
+  <table aria-describedby="finishedGoodsDesc">
+    <caption id="finishedGoodsDesc">Finished goods waiting dispatch</caption>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Order IDs</th>
+      </tr>
+    </thead>
+    <tbody id="finishedGoodsTableBody">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+
+  <h3>Scrap Material</h3>
+  <table aria-describedby="scrapMaterialDesc">
+    <caption id="scrapMaterialDesc">Scrap raw materials and quantities</caption>
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Quantity (Kg)</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody id="scrapMaterialTableBody">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+</section>
+
+<!-- Machine & Labor Utilization -->
+<section id="machineUtilizationPage" class="page-section" hidden aria-label="Machine and Labor Utilization">
+  <h2>Machine & Labor Utilization</h2>
+  <table aria-describedby="machineUtilDesc">
+    <caption id="machineUtilDesc">Machine uptime/downtime, productivity and alerts</caption>
+    <thead>
+      <tr>
+        <th>Machine ID</th>
+        <th>Uptime (hrs)</th>
+        <th>Downtime (hrs)</th>
+        <th>Shift</th>
+        <th>Productivity</th>
+        <th>Alerts</th>
+      </tr>
+    </thead>
+    <tbody id="machineUtilTableBody">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+</section>
+
+<!-- Analytics Panel -->
+<section id="analyticsPage" class="page-section" hidden aria-label="Analytics Panel">
+  <h2>Analytics Panel</h2>
+  <canvas id="analytics-chart" aria-label="Pie chart showing analytics data"></canvas>
+  <div class="analytics-row" aria-live="polite">
+    <div class="analytics-card">
+      <h4>On-Time Delivery %</h4>
+      <p id="onTimeDeliveryPercent">--%</p>
     </div>
-</div>
+    <div class="analytics-card">
+      <h4>Wastage %</h4>
+      <p id="wastagePercent">--%</p>
+    </div>
+    <div class="analytics-card">
+      <h4>Daily Output (units)</h4>
+      <p id="dailyOutput">--</p>
+    </div>
+  </div>
+  <div class="download-buttons" role="group" aria-label="Download report buttons">
+    <button id="downloadPDF">Download PDF Report</button>
+    <button id="downloadExcel">Download Excel Report</button>
+  </div>
+</section>
+
+<!-- Role-Based Access Control -->
+<section id="rbacPage" class="page-section" hidden aria-label="Role Based Access Control">
+  <h2>Role Based Access Control</h2>
+  <div class="login" aria-label="User role selection">
+    <label for="roleSelect">Select Role:</label>
+    <select id="roleSelect" aria-required="true">
+      <option value="" disabled selected>Select your role</option>
+      <option value="admin">Admin</option>
+      <option value="supervisor">Supervisor</option>
+      <option value="worker">Worker</option>
+      <option value="client">Client</option>
+    </select>
+    <button id="loginBtn" aria-label="Login as selected role">Login</button>
+  </div>
+  <div id="roleInfo" class="role-info" aria-live="polite">
+    <!-- Role description shown here -->
+  </div>
+  <button id="logoutBtn" style="display:none; margin-top:1em; background:#dc3545; color:white; padding:8px 16px; border:none; border-radius:6px; cursor:pointer;">Logout</button>
+</section>
+
+<!-- About Us -->
+<section id="aboutPage" class="page-section" hidden aria-label="About Us">
+  <h2>About NeXT-US Industries</h2>
+  <p>NeXT-US Industries is a dedicated manufacturer serving the small scale industries with high-quality soaps and shampoos. We aim to combine traditional values with modern technologies to deliver the best products to our customers. Our commitment to innovation and quality drives us forward in the competitive market.</p>
+</section>
+
+<!-- Contact Us -->
+<section id="contactPage" class="page-section" hidden aria-label="Contact Us">
+  <h2>Contact Us</h2>
+  <p>Feel free to reach out to NeXT-US Industries for any inquiries, orders, or support:</p>
+  <ul>
+    <li><strong>Address:</strong> 123 Industrial Area, Bangalore, India</li>
+    <li><strong>Phone:</strong> +91 98765 43210</li>
+    <li><strong>Email:</strong> contact@nextusind.com</li>
+    <li><strong>Website:</strong> www.nextusind.com</li>
+  </ul>
+</section>
+
+<!-- QR Code Scanner / Logger -->
+<section id="qrScannerPage" class="page-section" hidden aria-label="QR Material Entry and Dispatch Log">
+  <h2>QR Code Based Raw Material Entry & Dispatch Log (Simulation)</h2>
+  <div id="qrSimulator">
+    <label for="materialType">Material Type:</label>
+    <select id="materialType">
+      <option value="rawEntry">Raw Material Entry</option>
+      <option value="dispatch">Dispatch</option>
+    </select>
+
+    <label for="materialName">Material/Product Name:</label>
+    <input id="materialName" type="text" placeholder="e.g. Soap Base, Shampoo Bottles" />
+
+    <label for="quantity">Quantity (Kg/Units):</label>
+    <input id="quantity" type="number" min="1" placeholder="Enter quantity" />
+
+    <label for="factorySelectQR">Factory:</label>
+    <select id="factorySelectQR">
+      <option value="factory1">Factory 1 - Bangalore</option>
+      <option value="factory2">Factory 2 - Hubli</option>
+      <option value="factory3">Factory 3 - Mysore</option>
+    </select>
+
+    <button id="logQRBtn">Log Entry</button>
+  </div>
+  <div id="qrLogs" aria-live="polite" aria-label="QR entry logs">
+    <!-- QR log entries shown here -->
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function() {
+    // Globals
+    const navButtons = {
+      home: document.getElementById('navHome'),
+      dashboard: document.getElementById('navDashboard'),
+      inventory: document.getElementById('navInventory'),
+      machine: document.getElementById('navMachine'),
+      analytics: document.getElementById('navAnalytics'),
+      rbac: document.getElementById('navRBAC'),
+      about: document.getElementById('navAbout'),
+      contact: document.getElementById('navContact'),
+      qrScanner: document.getElementById('navQRScanner')
+    };
+    const pages = {
+      home: document.getElementById('homePage'),
+      dashboard: document.getElementById('dashboardPage'),
+      inventory: document.getElementById('inventoryPage'),
+      machine: document.getElementById('machineUtilizationPage'),
+      analytics: document.getElementById('analyticsPage'),
+      rbac: document.getElementById('rbacPage'),
+      about: document.getElementById('aboutPage'),
+      contact: document.getElementById('contactPage'),
+      qrScanner: document.getElementById('qrScannerPage')
+    };
+
+    // Role-based info text
+    const roleTexts = {
+      admin: "As an Admin, you have full control over the system including managing users, orders, inventory, and analytics.",
+      supervisor: "As a Supervisor, you monitor production, approve orders, and work with workers to ensure quality and timelines.",
+      worker: "As a Worker, you see your assigned tasks, shifts, and report work progress or issues.",
+      client: "As a Client, you can view your order statuses and communicate with the company for support."
+    };
+
+    // Current role state
+    let currentRole = null;
+
+    // Language support strings (English & Kannada)
+    const langStrings = {
+      en: {
+    homeBtn: "Home",
+        dashboardBtn: "Dashboard",
+        inventoryBtn: "Inventory Tracker",
+        machineBtn: "Machine & Labor Utilization",
+        analyticsBtn: "Analytics Panel",
+        rbacBtn: "Role-Based Access Control",
+        qrBtn: "QR Material Entry",
+        aboutBtn: "About Us",
+        contactBtn: "Contact Us",
+        homeWelcome: "Welcome to NeXT-US Industries",
+        homeDesc: "Your trusted manufacturer of premium soap and shampoo products. Quality, productivity & innovation at the heart of everything we do.",
+        aboutTitle: "About NeXT-US Industries",
+        aboutDesc: "NeXT-US Industries is a dedicated manufacturer serving the small scale industries with high-quality soaps and shampoos. We aim to combine traditional values with modern technologies to deliver the best products to our customers. Our commitment to innovation and quality drives us forward in the competitive market.",
+        contactTitle: "Contact Us",
+        contactDesc: "Feel free to reach out to NeXT-US Industries for any inquiries, orders, or support:",
+        contactAddress: "123 Industrial Area, Bangalore, India",
+        contactPhone: "+91 98765 43210",
+        contactEmail: "contact@nextusind.com",
+        contactWebsite: "www.nextusind.com",
+        selectFactory: "Select Factory:",
+        factoryChooseInfo: "Choose factory to view production data",
+        soapProductionOverview: "Soap Production Overview",
+        shampooProductionOverview: "Shampoo Production Overview",
+        rawMaterialConsumption: "Raw Material Consumption",
+        finishedGoodsReady: "Finished Goods Ready to Dispatch",
+        scrapMaterial: "Scrap Material",
+        machineLaborUtil: "Machine & Labor Utilization",
+        uptimeDownTime: "Uptime / Downtime (hrs)",
+        analyticsPanel: "Analytics Panel",
+        onTimeDelivery: "On-Time Delivery %",
+        wastage: "Wastage %",
+        dailyOutput: "Daily Output (units)",
+        downloadPDF: "Download PDF Report",
+        downloadExcel: "Download Excel Report",
+        roleBasedAccessControl: "Role Based Access Control",
+        selectRole: "Select Role:",
+        loginBtn: "Login",
+        logoutBtn: "Logout",
+        qrPageTitle: "QR Code Based Raw Material Entry & Dispatch Log (Simulation)",
+        materialType: "Material Type:",
+        rawEntry: "Raw Material Entry",
+        dispatch: "Dispatch",
+        materialProductName: "Material/Product Name:",
+        quantity: "Quantity (Kg/Units):",
+        factoryLabel: "Factory:",
+        logEntryBtn: "Log Entry",
+        statusPending: "Pending",
+        statusInProgress: "In Progress",
+        statusCompleted: "Completed",
+        statusDelayed: "Delayed",
+        shiftMorning: "Morning",
+        shiftEvening: "Evening",
+        shiftNight: "Night"
+      },
+      kn: {
+        homeBtn: "ಮುಖಪುಟ",
+        dashboardBtn: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+        inventoryBtn: "ಇನ್ವೆಂಟರಿ ಟ್ರ್ಯಾಕರ್",
+        machineBtn: "ಯಂತ್ರ ಮತ್ತು ಕಾರ್ಮಿಕರ ಬಳಕೆ",
+        analyticsBtn: "ವಿಶ್ಲೇಷಣಾ ಫಲಕ",
+        rbacBtn: "ಪಾತ್ರ ಆಧಾರಿತ ಪ್ರವೇಶ ನಿಯಂತ್ರಣ",
+        qrBtn: "QR ವಸ್ತು ಪ್ರವೇಶ",
+        aboutBtn: "ನಮ್ಮ ಬಗ್ಗೆ",
+        contactBtn: "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ",
+        homeWelcome: "ನext-ಯುಎಸ್ ಕೈಗಾರಿಕೆಗಳಿಗೆ ಸ್ವಾಗತ",
+        homeDesc: "ನಿಮ್ಮ ಸುರಕ್ಷಿತ ಮತ್ತು ಗುಣಮಟ್ಟದ ಸಾಬೂನು ಮತ್ತು ಶ್ಯಾಂಪೂ ಉತ್ಪನ್ನಗಳನ್ನು ತಯಾರಿಸುವ ತಯಾರಕ. ಗುಣಮಟ್ಟ, ಉತ್ಪಾದನೆ ಮತ್ತು ನವೀನತೆ ನಮ್ಮ ಹೃದಯವಾಗಿದೆ.",
+        aboutTitle: "ನext-ಯುಎಸ್ ಕೈಗಾರಿಕೆಗಳ ಬಗ್ಗೆ",
+        aboutDesc: "ನext-ಯುಎಸ್ ಕೈಗಾರಿಕೆಗಳು ಸಣ್ಣ ತಯಾರಿಕೆ ಕೈಗಾರಿಕೆಗಳಿಗೆ ಉನ್ನತ ಗುಣಬಹುತಿಮಾನ ಸಾಬೂನು ಮತ್ತು ಶ್ಯಾಂಪೂಗಳನ್ನು ತಯಾರಿಸುತ್ತವೆ. ನಾವು ಆಧುನಿಕ ತಂತ್ರಜ್ಞಾನ ಮತ್ತು ಮುಂದಿನ ತಲೆಮಾರಿನ ಮೌಲ್ಯಗಳನ್ನು ಜೊತೆಗೆ ಸೇರಿಸಿ ಉತ್ತಮ ಉತ್ಪನ್ನಗಳನ್ನು ಒದಗಿಸುತ್ತೇವೆ.",
+        contactTitle: "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿರಿ",
+        contactDesc: "ಯಾವುದೇ ವಿಚಾರಣೆಗಳಿಗೆ, ಆದೇಶಗಳಿಗೆ ಅಥವಾ ಬೆಂಬಲಕ್ಕಾಗಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ:",
+        contactAddress: "123 ಇಂಡಸ್ಟ್ರಿಯಲ್ ಏರಿಯಾ, ಬೆಂಗಳೂರು, ಭಾರತ",
+        contactPhone: "+91 98765 43210",
+        contactEmail: "contact@nextusind.com",
+        contactWebsite: "www.nextusind.com",
+        selectFactory: "ಕಾರ್ಖಾನೆ ಆಯ್ಕೆಮಾಡಿ:",
+        factoryChooseInfo: "ಉತ್ಪಾದನೆ ಡೇಟಾವನ್ನು ನೋಡುವುದಕ್ಕೆ ಕಾರ್ಖಾನೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        soapProductionOverview: "ಸಾಬೂನು ಉತ್ಪಾದನೆ ಅವಲೋಕನ",
+        shampooProductionOverview: "ಶ್ಯಾಂಪೂ ಉತ್ಪಾದನೆ ಅವಲೋಕನ",
+        rawMaterialConsumption: "ಮೂಲಾಗ್ರ ಸಾಮಗ್ರಿ ಬಳಕೆ",
+        finishedGoodsReady: "ಮುಗಿದ ಉಪಕರಣಗಳು ರವಾನೆ ಮಾಡಲು ಸಿದ್ಧವಾಗಿವೆ",
+        scrapMaterial: "ಸ್ಕ್ರಾಪ್ ವಸ್ತು",
+        machineLaborUtil: "ಯಂತ್ರ ಮತ್ತು ದುಡಿಯುವವರ ಬಳಕೆ",
+        uptimeDownTime: "ಉಪಯೋಗ / ಡೌನ್‌ಟೈಮ್ (ಗಂಟೆಗಳು)",
+        analyticsPanel: "ವಿಶ್ಲೇಷಣಾ ಪ್ಯಾನೆಲ್",
+        onTimeDelivery: "ಸಮಯಕ್ಕೆ ವಿತರಣೆಯ %", 
+        wastage: "ತ್ತೆಸ್‍ತ್ಯ %", 
+        dailyOutput: "ದೈನಂದಿನ ಉತ್ಪಾದನೆ (ಘಟಕಗಳು)", 
+        downloadPDF: "PDF ವರದಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", 
+        downloadExcel: "Excel ವರದಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", 
+        roleBasedAccessControl: "ಪಾತ್ರ ಆಧಾರಿತ ಪ್ರವೇಶ ನಿಯಂತ್ರಣ",
+        selectRole: "ಪಾತ್ರ ಆಯ್ಕೆಮಾಡಿ:",
+        loginBtn: "ಲಾಗಿನ್ ಮಾಡಿ",
+        logoutBtn: "ಲಾಗೌಟ್ ಮಾಡಿ",
+        qrPageTitle: "QR ಕೋಡ್ ಆಧಾರಿತ ಆರಂಭಿಕ ವಸ್ತು/ರವಾನೆ ಲಾಗ್ (ಅನುಕರಣೆ)",
+        materialType: "ಸಾಮಗ್ರಿ ಪ್ರಕಾರ:",
+        rawEntry: "ಮೂಲ ವಸ್ತು ಪ್ರವೇಶ",
+        dispatch: "ರವಾನೆ",
+        materialProductName: "ಸಾಮಗ್ರಿ/ಉತ್ಪನ್ನದ ಹೆಸರು:",
+        quantity: "ಪ್ರಮಾಣ (ಕಿ.ಗ್ರಾ/ಘಟಕಗಳು):",
+        factoryLabel: "ಕಾರ್ಖಾನೆ:",
+        logEntryBtn: "ಪ್ರವೇಶವನ್ನು ಲಾಗ್ ಮಾಡಿ",
+        statusPending: "ಮಾಡಲಾಗಿಲ್ಲ",
+        statusInProgress: "ಮುಂದುವರೆದಿದೆ",
+        statusCompleted: "ಸಂಪೂರ್ಣವಾಗಿದೆ",
+        statusDelayed: "ವಿಳಂಬವಾಗಿದೆ",
+        shiftMorning: "ಮಾರ್ನಿಂಗ್",
+        shiftEvening: "ಈವಿಂಗ್",
+        shiftNight: "ನೈಟ್",
+      }
+    };
+
+    let currentLang = 'en';
+
+    // Helper function to translate UI text based on langStrings
+    function translateUI() { 
+      // Home
+      pages.home.querySelector('h1').textContent = langStrings[currentLang].homeWelcome;
+      pages.home.querySelector('p').textContent = langStrings[currentLang].homeDesc;
+      
+      // About
+      pages.about.querySelector('h2').textContent = langStrings[currentLang].aboutTitle;
+      pages.about.querySelector('p').textContent = langStrings[currentLang].aboutDesc;
+      
+      // Contact
+      pages.contact.querySelector('h2').textContent = langStrings[currentLang].contactTitle;
+      const contactHTML = `
+        <p>${langStrings[currentLang].contactDesc}</p>
+        <ul>
+          <li><strong>Address:</strong> ${langStrings[currentLang].contactAddress}</li>
+          <li><strong>Phone:</strong> ${langStrings[currentLang].contactPhone}</li>
+          <li><strong>Email:</strong> ${langStrings[currentLang].contactEmail}</li>
+          <li><strong>Website:</strong> ${langStrings[currentLang].contactWebsite}</li>
+        </ul>`;
+      pages.contact.innerHTML = '<h2>' + langStrings[currentLang].contactTitle + '</h2>' + contactHTML;
+
+      // Dashboard
+      document.querySelector('.factory-selector label').textContent = langStrings[currentLang].selectFactory;
+      document.getElementById('factoryDesc').textContent = langStrings[currentLang].factoryChooseInfo;
+      document.getElementById('tabSoap').textContent = langStrings[currentLang].soapProductionOverview.split(' ')[0];
+      document.getElementById('tabShampoo').textContent = langStrings[currentLang].shampooProductionOverview.split(' ')[0];
+      document.querySelector('#soapTab h3').textContent = langStrings[currentLang].soapProductionOverview;
+      document.querySelector('#shampooTab h3').textContent = langStrings[currentLang].shampooProductionOverview;
+
+      // Inventory
+      document.querySelector('#inventoryPage h2').textContent = langStrings[currentLang].rawMaterialConsumption; 
+      // Updating other inventory headings is done within HTML and can remain English for simplicity
+      
+      // Machine & Labor
+      document.querySelector('#machineUtilizationPage h2').textContent = langStrings[currentLang].machineLaborUtil;
+
+      // Analytics
+      document.querySelector('#analyticsPage h2').textContent = langStrings[currentLang].analyticsPanel;
+      document.querySelector('#analyticsPage .analytics-card:nth-child(1) h4').textContent = langStrings[currentLang].onTimeDelivery;
+      document.querySelector('#analyticsPage .analytics-card:nth-child(2) h4').textContent = langStrings[currentLang].wastage;
+      document.querySelector('#analyticsPage .analytics-card:nth-child(3) h4').textContent = langStrings[currentLang].dailyOutput;
+      document.getElementById('downloadPDF').textContent = langStrings[currentLang].downloadPDF;
+      document.getElementById('downloadExcel').textContent = langStrings[currentLang].downloadExcel;
+
+      // RBAC
+      document.querySelector('#rbacPage h2').textContent = langStrings[currentLang].roleBasedAccessControl;
+      document.querySelector('#rbacPage label').textContent = langStrings[currentLang].selectRole;
+      document.getElementById('loginBtn').textContent = langStrings[currentLang].loginBtn;
+      document.getElementById('logoutBtn').textContent = langStrings[currentLang].logoutBtn;
+
+      // QR Scanner Page
+      document.querySelector('#qrScannerPage h2').textContent = langStrings[currentLang].qrPageTitle;
+      document.querySelector('label[for=materialType]').textContent = langStrings[currentLang].materialType;
+      document.querySelector('#materialType option[value=rawEntry]').textContent = langStrings[currentLang].rawEntry;
+      document.querySelector('#materialType option[value=dispatch]').textContent = langStrings[currentLang].dispatch;
+      document.querySelector('label[for=materialName]').textContent = langStrings[currentLang].materialProductName;
+      document.querySelector('label[for=quantity]').textContent = langStrings[currentLang].quantity;
+      document.querySelector('label[for=factorySelectQR]').textContent = langStrings[currentLang].factoryLabel;
+      document.getElementById('logQRBtn').textContent = langStrings[currentLang].logEntryBtn;
+    }
+
+    // Navigation
+    function showPage(pageKey) {
+      // Hide all
+      Object.values(pages).forEach(p => p.hidden = true);
+      // Show selected
+      pages[pageKey].hidden = false;
+      // Update nav active states and aria-current
+      Object.entries(navButtons).forEach(([key, btn]) => {
+        if(key === pageKey) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.classList.remove('active');
+          btn.removeAttribute('aria-current');
+        }
+      });
+      // If analytics page, update chart
+      if(pageKey === 'analytics') {
+        updateAnalyticsChart();
+      }
+    }
+
+    // Production data simulation per factory
+    const productionData = {
+      factory1: {
+        soap: [
+          {orderId: 'SOP1001', status: 'inprogress', shift: 'Morning', hoursWorked: 5, dailyProduction: 120, productivity: 78, estCompletion: '3h'},
+          {orderId: 'SOP1002', status: 'pending', shift: 'Evening', hoursWorked: 0, dailyProduction: 0, productivity: 0, estCompletion: '8h'}
+        ],
+        shampoo: [
+          {orderId: 'SHP2001', status: 'completed', shift: 'Night', hoursWorked: 6, dailyProduction: 90, productivity: 80, estCompletion: 'Completed'},
+          {orderId: 'SHP2002', status: 'delayed', shift: 'Morning', hoursWorked: 4, dailyProduction: 45, productivity: 60, estCompletion: '6h'}
+        ]
+      },
+      factory2: {
+        soap: [
+          {orderId: 'SOP3001', status: 'completed', shift: 'Morning', hoursWorked: 6, dailyProduction: 100, productivity: 85, estCompletion: 'Completed'},
+          {orderId: 'SOP3002', status: 'inprogress', shift: 'Evening', hoursWorked: 3, dailyProduction: 60, productivity: 70, estCompletion: '4h'}
+        ],
+        shampoo: [
+          {orderId: 'SHP4001', status: 'pending', shift: 'Night', hoursWorked: 0, dailyProduction: 0, productivity: 0, estCompletion: '7h'},
+          {orderId: 'SHP4002', status: 'inprogress', shift: 'Morning', hoursWorked: 5, dailyProduction: 75, productivity: 77, estCompletion: '3h'}
+        ]
+      },
+      factory3: {
+        soap: [
+          {orderId: 'SOP5001', status: 'delayed', shift: 'Night', hoursWorked: 4, dailyProduction: 55, productivity: 55, estCompletion: '5h'},
+          {orderId: 'SOP5002', status: 'pending', shift: 'Morning', hoursWorked: 0, dailyProduction: 0, productivity: 0, estCompletion: '9h'}
+        ],
+        shampoo: [
+          {orderId: 'SHP6001', status: 'completed', shift: 'Evening', hoursWorked: 6, dailyProduction: 95, productivity: 85, estCompletion: 'Completed'},
+          {orderId: 'SHP6002', status: 'inprogress', shift: 'Night', hoursWorked: 4, dailyProduction: 80, productivity: 75, estCompletion: '4h'}
+        ]
+      }
+    };
+
+    // Inventory data simulation
+    const inventoryData = {
+      rawMaterials: [
+        {material: 'Soap Base', consumed: 2500, threshold: 500, alerts: false},
+        {material: 'Fragrance Oils', consumed: 350, threshold: 400, alerts: true},
+        {material: 'Shampoo Base', consumed: 1800, threshold: 300, alerts: false},
+        {material: 'Packaging Bottles', consumed: 1500, threshold: 200, alerts: false}
+      ],
+      finishedGoods: [
+        {product: 'Soap Bars', quantity: 6000, orderIds: ['SOP1001','SOP3002','SOP6001']},
+        {product: 'Shampoo Bottles', quantity: 4500, orderIds: ['SHP2001','SHP4002','SHP6002']}
+      ],
+      scrapMaterial: [
+        {material: 'Soap Base', quantity: 50, reason: 'Mixing errors'},
+        {material: 'Packaging', quantity: 20, reason: "Damaged bottles"}
+      ]
+    };
+
+    // Machine utilization data simulation
+    const machineUtilizationData = [
+      {machineId: 'M-01', uptime: 20, downtime: 4, shift: 'Morning', productivity: 88, alerts: ''},
+      {machineId: 'M-02', uptime: 18, downtime: 6, shift: 'Evening', productivity: 75, alerts: 'Idle time high'},
+      {machineId: 'M-03', uptime: 22, downtime: 3, shift: 'Night', productivity: 90, alerts: ''},
+      {machineId: 'M-04', uptime: 16, downtime: 8, shift: 'Morning', productivity: 60, alerts: 'Overloaded'},
+    ];
+
+    // Analytics data simulation
+    const analyticsData = {
+      onTimeDelivery: 92,
+      wastage: 3.8,
+      dailyOutput: 10500
+    };
+
+    // Utility functions - clear and fill tables with data
+    function clearTableBody(tbody) {
+      while (tbody.firstChild) {
+        tbody.firstChild.remove();
+      }
+    }
+
+    function createStatusDot(status) {
+      const span = document.createElement('span');
+      span.classList.add('status-dot');
+      switch(status) {
+        case 'pending': span.classList.add('status-pending'); break;
+        case 'inprogress': span.classList.add('status-inprogress'); break;
+        case 'completed': span.classList.add('status-completed'); break;
+        case 'delayed': span.classList.add('status-delayed'); break;
+        default: span.style.backgroundColor = '#888'; break;
+      }
+      return span;
+    }
+
+    // Populate production tables
+    function populateProduction(factoryKey) {
+      // Soap
+      const soapTbody = document.querySelector('#soapProductionTable tbody');
+      clearTableBody(soapTbody);
+      const soapData = productionData[factoryKey]?.soap || [];
+      soapData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.orderId}</td>
+          <td></td>
+          <td>${langStrings[currentLang]['shift' + capitalize(item.shift.toLowerCase())] || item.shift}</td>
+          <td>${item.hoursWorked}</td>
+          <td>${item.dailyProduction}</td>
+          <td>${item.productivity}%</td>
+          <td>${item.estCompletion}</td>
+        `;
+        const statusCell = tr.cells[1];
+        statusCell.appendChild(createStatusDot(item.status));
+        statusCell.append(' ' + (langStrings[currentLang]['status' + capitalize(item.status)] || item.status));
+        soapTbody.appendChild(tr);
+      });
+
+      // Shampoo
+      const shampooTbody = document.querySelector('#shampooProductionTable tbody');
+      clearTableBody(shampooTbody);
+      const shampooData = productionData[factoryKey]?.shampoo || [];
+      shampooData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.orderId}</td>
+          <td></td>
+          <td>${langStrings[currentLang]['shift' + capitalize(item.shift.toLowerCase())] || item.shift}</td>
+          <td>${item.hoursWorked}</td>
+          <td>${item.dailyProduction}</td>
+          <td>${item.productivity}%</td>
+          <td>${item.estCompletion}</td>
+        `;
+        const statusCell = tr.cells[1];
+        statusCell.appendChild(createStatusDot(item.status));
+        statusCell.append(' ' + (langStrings[currentLang]['status' + capitalize(item.status)] || item.status));
+        shampooTbody.appendChild(tr);
+      });
+    }
+
+    // Populate inventory tables
+    function populateInventory() {
+      // Raw materials
+      const rmTbody = document.getElementById('rawMaterialTableBody');
+      clearTableBody(rmTbody);
+      inventoryData.rawMaterials.forEach(mat => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${mat.material}</td>
+          <td>${mat.consumed}</td>
+          <td>${mat.threshold}</td>
+          <td>${mat.alerts ? '<span class="alert">Low Stock</span>' : 'Normal'}</td>
+        `;
+        rmTbody.appendChild(tr);
+      });
+
+      // Finished goods
+      const fgTbody = document.getElementById('finishedGoodsTableBody');
+      clearTableBody(fgTbody);
+      inventoryData.finishedGoods.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.product}</td>
+          <td>${item.quantity}</td>
+          <td>${item.orderIds.join(', ')}</td>
+        `;
+        fgTbody.appendChild(tr);
+      });
+
+      // Scrap material
+      const scrTbody = document.getElementById('scrapMaterialTableBody');
+      clearTableBody(scrTbody);
+      inventoryData.scrapMaterial.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.material}</td>
+          <td>${item.quantity}</td>
+          <td>${item.reason}</td>
+        `;
+        scrTbody.appendChild(tr);
+      });
+    }
+
+    // Populate machine utilization
+    function populateMachineUtilization() {
+      const tblBody = document.getElementById('machineUtilTableBody');
+      clearTableBody(tblBody);
+      machineUtilizationData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.machineId}</td>
+          <td>${item.uptime}</td>
+          <td>${item.downtime}</td>
+          <td>${langStrings[currentLang]['shift' + capitalize(item.shift.toLowerCase())] || item.shift}</td>
+          <td>${item.productivity}%</td>
+          <td>${item.alerts || '-'}</td>
+        `;
+        tblBody.appendChild(tr);
+      });
+    }
+
+    // Populate analytics
+    function populateAnalytics() {
+      document.getElementById('onTimeDeliveryPercent').textContent = analyticsData.onTimeDelivery + '%';
+      document.getElementById('wastagePercent').textContent = analyticsData.wastage + '%';
+      document.getElementById('dailyOutput').textContent = analyticsData.dailyOutput.toLocaleString();
+    }
+
+    // Helpers
+    function capitalize(s) {
+      if(!s) return s;
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    // Tabs on dashboard
+    const tabSoap = document.getElementById('tabSoap');
+    const tabShampoo = document.getElementById('tabShampoo');
+    const soapTabContent = document.getElementById('soapTab');
+    const shampooTabContent = document.getElementById('shampooTab');
+
+    tabSoap.addEventListener('click', () => {
+      tabSoap.classList.add('active');
+      tabShampoo.classList.remove('active');
+      soapTabContent.hidden = false;
+      shampooTabContent.hidden = true;
+      tabSoap.setAttribute('aria-selected', 'true');
+      tabShampoo.setAttribute('aria-selected', 'false');
+      tabSoap.tabIndex = 0;
+      tabShampoo.tabIndex = -1;
+    });
+    tabShampoo.addEventListener('click', () => {
+      tabShampoo.classList.add('active');
+      tabSoap.classList.remove('active');
+      shampooTabContent.hidden = false;
+      soapTabContent.hidden = true;
+      tabShampoo.setAttribute('aria-selected', 'true');
+      tabSoap.setAttribute('aria-selected', 'false');
+      tabShampoo.tabIndex = 0;
+      tabSoap.tabIndex = -1;
+    });
+
+    // Factory selector on dashboard
+    const dashboardFactorySelect = document.getElementById('dashboardFactorySelect');
+    dashboardFactorySelect.addEventListener('change', () => {
+      populateProduction(dashboardFactorySelect.value);
+    });
+
+    // Role based access control logic
+    const roleSelect = document.getElementById('roleSelect');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const roleInfo = document.getElementById('roleInfo');
+
+    loginBtn.addEventListener('click', () => {
+      const role = roleSelect.value;
+      if (!role) {
+        alert('Please select a role!');
+        return;
+      }
+      currentRole = role;
+      roleInfo.textContent = roleTexts[role] || '';
+      logoutBtn.style.display = 'inline-block';
+      loginBtn.disabled = true;
+      roleSelect.disabled = true;
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      currentRole = null;
+      roleInfo.textContent = '';
+      logoutBtn.style.display = 'none';
+      loginBtn.disabled = false;
+      roleSelect.disabled = false;
+      roleSelect.value = '';
+    });
+
+    // Language toggle
+    const langToggleBtn = document.getElementById('langToggle');
+    langToggleBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'kn' : 'en';
+      langToggleBtn.textContent = currentLang === 'en' ? 'ಕನ್ನಡ' : 'English';
+      translateUI();
+      populateProduction(dashboardFactorySelect.value);
+      populateInventory();
+      populateMachineUtilization();
+      populateAnalytics();
+    });
+
+    // Navigation buttons click
+    Object.entries(navButtons).forEach(([key, btn]) => {
+      btn.addEventListener('click', () => {
+        showPage(key);
+        // For dashboard show default selected factory
+        if(key === 'dashboard') {
+          populateProduction(dashboardFactorySelect.value);
+        }
+        if(key === 'inventory') {
+          populateInventory();
+        }
+        if(key === 'machine') {
+          populateMachineUtilization();
+        }
+        if(key === 'analytics') {
+          populateAnalytics();
+        }
+      });
+    });
+
+    // Initial setup
+    translateUI();
+    showPage('home');
+    populateProduction(dashboardFactorySelect.value);
+    populateInventory();
+    populateMachineUtilization();
+    populateAnalytics();
+
+    // Download reports (PDF & Excel) for analytics
+    document.getElementById('downloadPDF').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(18);
+      doc.setTextColor('#FFAA00');
+      doc.text("NeXT-US Industries - Analytics Report", 14, 22);
+
+      doc.setFontSize(14);
+      doc.setTextColor('#000');
+      doc.text(`On-Time Delivery: ${analyticsData.onTimeDelivery}%`, 14, 40);
+      doc.text(`Wastage: ${analyticsData.wastage}%`, 14, 50);
+      doc.text(`Daily Output: ${analyticsData.dailyOutput.toLocaleString()} units`, 14, 60);
+
+      doc.save('NeXT-US-Analytics-Report.pdf');
+    });
+
+    document.getElementById('downloadExcel').addEventListener('click', () => {
+      const wb = XLSX.utils.book_new();
+      wb.Props = {
+        Title: "NeXT-US Analytics Report",
+        Subject: "Analytics",
+        Author: "NeXT-US Industries",
+        CreatedDate: new Date()
+      };
+
+      const ws_data = [
+        ["Metric", "Value"],
+        ["On-Time Delivery %", analyticsData.onTimeDelivery],
+        ["Wastage %", analyticsData.wastage],
+        ["Daily Output (units)", analyticsData.dailyOutput]
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(ws_data);
+      XLSX.utils.book_append_sheet(wb, ws, "Analytics");
+
+      XLSX.writeFile(wb, "NeXT-US-Analytics-Report.xlsx");
+    });
+
+    // QR code simulation: just simple manual logging of entries
+    const materialTypeSelect = document.getElementById('materialType');
+    const materialNameInput = document.getElementById('materialName');
+    const quantityInput = document.getElementById('quantity');
+    const factorySelectQR = document.getElementById('factorySelectQR');
+    const logQRBtn = document.getElementById('logQRBtn');
+    const qrLogsDiv = document.getElementById('qrLogs');
+
+    // Load QR logs from localStorage or keep empty
+    let qrLogs = JSON.parse(localStorage.getItem('qrLogs')) || [];
+
+    function renderQRLogs() {
+      qrLogsDiv.innerHTML = '';
+      if(qrLogs.length === 0) {
+        qrLogsDiv.textContent = 'No logs recorded yet.';
+        return;
+      }
+      qrLogs.slice().reverse().forEach(log => {
+        const d = new Date(log.timestamp);
+        const div = document.createElement('div');
+        div.textContent = `[${d.toLocaleString()}] Factory: ${log.factory} | Type: ${langStrings[currentLang][log.materialType] || log.materialType} | Name: ${log.materialName} | Qty: ${log.quantity}`;
+        qrLogsDiv.appendChild(div);
+      });
+    }
+    renderQRLogs();
+
+    logQRBtn.addEventListener('click', () => {
+      const mType = materialTypeSelect.value;
+      const mName = materialNameInput.value.trim();
+      const qty = Number(quantityInput.value);
+      const factory = factorySelectQR.value;
+
+      if(!mName || qty <= 0 || !factory) {
+        alert('Please fill in all fields with valid values.');
+        return;
+      }
+      const newLog = {
+        materialType: mType,
+        materialName: mName,
+        quantity: qty,
+        factory,
+        timestamp: Date.now()
+      };
+      qrLogs.push(newLog);
+      localStorage.setItem('qrLogs', JSON.stringify(qrLogs));
+      renderQRLogs();
+
+      // Clear inputs
+      materialNameInput.value = '';
+      quantityInput.value = '';
+    });
+
+    // Analytics Chart using Chart.js
+    let analyticsChart = null;
+    function updateAnalyticsChart() {
+      const ctx = document.getElementById('analytics-chart').getContext('2d');
+      if(analyticsChart) {
+        analyticsChart.destroy();
+      }
+      analyticsChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['On-time Delivery %', 'Wastage %', 'Other'],
+          datasets: [{
+            data: [analyticsData.onTimeDelivery, analyticsData.wastage, 100 - analyticsData.onTimeDelivery - analyticsData.wastage],
+            backgroundColor: ['#28a745', '#dc3545', '#ccc'],
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            }
+          }
+        }
+      });
+    }
+  })();
+</script>
 </body>
-</html>d
+</html
